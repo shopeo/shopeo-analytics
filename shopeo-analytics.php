@@ -118,7 +118,9 @@ add_action( 'admin_menu', 'shopeo_analytics_options_page' );
 
 if ( ! function_exists( 'shopeo_analytics_head' ) ) {
 	function shopeo_analytics_head() {
-		echo isset( get_option( 'shopeo_analytics_option_name' )['shopeo_analytics_code'] ) ? get_option( 'shopeo_analytics_option_name' )['shopeo_analytics_code'] : '';
+		if ( is_archive() || is_singular() || is_home() || is_404() || is_search() || is_front_page() ) {
+			echo isset( get_option( 'shopeo_analytics_option_name' )['shopeo_analytics_code'] ) ? get_option( 'shopeo_analytics_option_name' )['shopeo_analytics_code'] : '';
+		}
 	}
 }
 
