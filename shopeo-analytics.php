@@ -50,17 +50,17 @@ if ( ! function_exists( 'shopeo_analytics_section_info' ) ) {
 
 if ( ! function_exists( 'shopeo_analytics_code_callback' ) ) {
 	function shopeo_analytics_code_callback() {
-		printf( '<textarea class="regular-text" rows="5" name="shopeo_analytics_option_name[shopeo_analytics_code]" id="shopeo_analytics_code">%s</textarea>', isset( get_option( 'shopeo_analytics_option_name' )['shopeo_analytics_code'] ) ? esc_attr( get_option( 'shopeo_analytics_option_name' )['shopeo_analytics_code'] ) : '' );
+		printf( '<textarea class="regular-text" rows="5" name="shopeo_analytics_options[shopeo_analytics_code]" id="shopeo_analytics_code">%s</textarea>', isset( get_option( 'shopeo_analytics_options' )['shopeo_analytics_code'] ) ? esc_attr( get_option( 'shopeo_analytics_options' )['shopeo_analytics_code'] ) : '' );
 	}
 }
 
 if ( ! function_exists( 'shopeo_analytics_page_init' ) ) {
 	function shopeo_analytics_page_init() {
-		register_setting( 'shopeo_analytics_option_group', 'shopeo_analytics_option_name', 'shopeo_analytics_sanitize' );
+		register_setting( 'shopeo_analytics_option_group', 'shopeo_analytics_options', 'shopeo_analytics_sanitize' );
 
-		add_settings_section( 'shopeo_analytics_setting_section', __( 'Settings', 'shopeo-analytics' ), 'shopeo_analytics_section_info', 'shopeo_analytics' );
+		add_settings_section( 'shopeo_analytics_setting_section', __( 'Settings', 'shopeo-analytics' ), 'shopeo_analytics_section_info', 'options_shopeo_analytics' );
 
-		add_settings_field( 'shopeo_analytics_code', __( 'Code', 'shopeo-analytics' ), 'shopeo_analytics_code_callback', 'shopeo_analytics', 'shopeo_analytics_setting_section' );
+		add_settings_field( 'shopeo_analytics_code', __( 'Code', 'shopeo-analytics' ), 'shopeo_analytics_code_callback', 'options_shopeo_analytics', 'shopeo_analytics_setting_section' );
 	}
 }
 
@@ -77,7 +77,7 @@ register_activation_hook( __FILE__, 'shopeo_analytics_activate' );
 
 if ( ! function_exists( 'shopeo_analytics_deactivate' ) ) {
 	function shopeo_analytics_deactivate() {
-		delete_option( 'shopeo_analytics_option_name' );
+		delete_option( 'shopeo_analytics_options' );
 	}
 }
 
@@ -99,7 +99,7 @@ if ( ! function_exists( 'shopeo_analytics_manage_options' ) ) {
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( 'shopeo_analytics_option_group' );
-				do_settings_sections( 'shopeo_analytics' );
+				do_settings_sections( 'options_shopeo_analytics' );
 				submit_button( __( 'Save Settings', 'shopeo-analytics' ) );
 				?>
 			</form>
@@ -110,7 +110,7 @@ if ( ! function_exists( 'shopeo_analytics_manage_options' ) ) {
 
 if ( ! function_exists( 'shopeo_analytics_options_page' ) ) {
 	function shopeo_analytics_options_page() {
-		add_options_page( __( 'SHOPEO Analytics', 'shopeo-analytics' ), __( 'Analytics', 'shopeo_analytics' ), 'manage_options', 'options_page_shopeo_analytics', 'shopeo_analytics_manage_options', 10 );
+		add_options_page( __( 'SHOPEO Analytics', 'shopeo-analytics' ), __( 'Analytics', 'shopeo_analytics' ), 'manage_options', 'options_shopeo_analytics', 'shopeo_analytics_manage_options', 10 );
 	}
 }
 
@@ -119,7 +119,7 @@ add_action( 'admin_menu', 'shopeo_analytics_options_page' );
 if ( ! function_exists( 'shopeo_analytics_head' ) ) {
 	function shopeo_analytics_head() {
 		if ( is_archive() || is_singular() || is_home() || is_404() || is_search() || is_front_page() ) {
-			echo isset( get_option( 'shopeo_analytics_option_name' )['shopeo_analytics_code'] ) ? get_option( 'shopeo_analytics_option_name' )['shopeo_analytics_code'] : '';
+			echo isset( get_option( 'shopeo_analytics_options' )['shopeo_analytics_code'] ) ? get_option( 'shopeo_analytics_options' )['shopeo_analytics_code'] : '';
 		}
 	}
 }
