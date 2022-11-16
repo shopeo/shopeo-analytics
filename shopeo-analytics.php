@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: SHOPEO Analytics
- * Plugin URI: https://www.shopeo.cn
+ * Plugin URI: https://www.shopeo.cn/plugins/shopeo-analytics
  * Description: Integrate Baidu tongji and Google analytics.
  * Author: Shopeo
  * Version: 0.0.1
